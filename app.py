@@ -10,6 +10,7 @@ import scraping
 # The third line says that to use the scraping code, we will convert from Jupyter notebook to Python.
 # Under these lines, let's add the following to set up Flask:
 
+# Set up Flask
 app = Flask(__name__)
 
 # We also need to tell Python how to connect to Mongo using PyMongo. Next, add the following lines:
@@ -32,6 +33,7 @@ mongo = PyMongo(app)
 
 # First, let's define the route for the HTML page. In our script, type the following:
 
+# Define the route for the HTML page
 @app.route("/")
 def index():
    mars = mongo.db.mars.find_one()
@@ -56,6 +58,7 @@ def index():
 
 # Let's add the next route and function to our code. In the editor, type the following:
 
+# Define the route for scraping
 @app.route("/scrape")
 def scrape():
    mars = mongo.db.mars
@@ -78,7 +81,7 @@ def scrape():
 
 # Now that we've gathered new data, we need to update the database using .update_one(). Let's take a look at the syntax we'll use, as shown below:
 
-.update_one(query_parameter, {"$set": data}, options)
+# .update_one(query_parameter, {"$set": data}, options)
 
 # Here, we're inserting data, but not if an identical record already exists. In the query_parameter, we can specify a field (e.g. {"news_title": "Mars Landing Successful"}),
 # in which case MongoDB will update a document with a matching news_title. Or it can be left empty ({}) to update the first matching document in the collection.
@@ -94,5 +97,6 @@ def scrape():
 
 # The final bit of code we need for Flask is to tell it to run. Add these two lines to the bottom of your script and save your work:
 
+# Tell Flask to run the code
 if __name__ == "__main__":
    app.run()
